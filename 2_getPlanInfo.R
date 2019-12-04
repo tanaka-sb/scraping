@@ -224,20 +224,20 @@ j_logic <- function(hotel,plancapmode,aftermonth,elistJ,kutikomiFlag,koukukenFla
                     checkinby <- ifelse(length(remDr$findElements(value = paste("//*[@class='s12_30']",sep="") )) >0,
                                         remDr$findElement(value = paste("//*[@class='s12_30']",sep="") )$getElementText()  %>% str_replace("幼児：食事・布団なし 受け入れなし","X"),"-")
                     
-                    cancelPolicy　<- remDr$findElement(value = paste("//*[contains(text(), '予約金')][@class='td03']/parent::node()",sep="") )$getElementText() %>% str_replace_all("\n","_")
-                    cancelPolicyLoc　<- remDr$findElement(value = paste("//*[contains(text(), '予約金')][@class='td03']/parent::node()",sep="") )
-                    noshowPolicy  <- remDr$findElement(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()",sep="") )$getElementText() %>% str_replace_all("\n","_")
+                    #cancelPolicy　<- remDr$findElement(value = paste("//*[contains(text(), '予約金')][@class='td03']/parent::node()",sep="") )$getElementText() %>% str_replace_all("\n","_")
+                    #cancelPolicyLoc　<- remDr$findElement(value = paste("//*[contains(text(), '予約金')][@class='td03']/parent::node()",sep="") )
+                    #noshowPolicy  <- remDr$findElement(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()",sep="") )$getElementText() %>% str_replace_all("\n","_")
                     
-                    if(length(remDr$findElements(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()/parent::node()/parent::node()/table",sep="")))){
-                        noshowPolicy <- paste(noshowPolicy,
-                                              remDr$findElement(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()/parent::node()/parent::node()/table[2]",sep="_"))$getElementText(),
-                                              sep="_")
-                    }
+                    #if(length(remDr$findElements(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()/parent::node()/parent::node()/table",sep="")))){
+                    #    noshowPolicy <- paste(noshowPolicy,
+                    #                          remDr$findElement(value = paste("//*[contains(text(), '無連絡キャンセル')][@class='td03']/parent::node()/parent::node()/parent::node()/parent::node()/table[2]",sep="_"))$getElementText(),
+                    #                          sep="_")
+                    #}
                     
                     receiptPolicy <- ""
                     
-                    remDr$executeScript(paste("window.scrollTo(1, ",cancelPolicyLoc$getElementLocation()$y -500 ,");"))
-                    remDr$screenshot(display = FALSE, file =paste("./WWW/Jalan",hotel,gsub("/","・",room),"policy",Sys.Date(),".png",sep="_"))
+                    #remDr$executeScript(paste("window.scrollTo(1, ",cancelPolicyLoc$getElementLocation()$y -500 ,");"))
+                    #remDr$screenshot(display = FALSE, file =paste("./WWW/Jalan",hotel,gsub("/","・",room),"policy",Sys.Date(),".png",sep="_"))
                     remDr$goBack() 
                 }
                 elistJ <- rbind(elistJ,  c("Jalan",l, hotel,name,paste(planId,plan,sep=":"),paste(roomId,room,sep=":"), paste(ppl,child,sep="_"), meal, date,checkintime,point,koukuken,paymentmethod,homenurl,checkinby,cancelPolicy,noshowPolicy,receiptPolicy))
